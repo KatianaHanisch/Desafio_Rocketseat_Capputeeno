@@ -2,9 +2,8 @@ import axios, { AxiosPromise } from "axios";
 import { useQuery } from "@tanstack/react-query";
 
 import { ProductsFetcherResponse } from "@/types/products-response";
-import { FilterType } from "@/types/filter-types";
 import { useFilter } from "./useFilter";
-import { getCategoryByType } from "@/utils/get-category-by-type";
+import { mountQuery } from "@/utils/graphql-filters";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL as string;
 
@@ -14,35 +13,12 @@ const fetcher = (query: string): AxiosPromise<ProductsFetcherResponse> => {
   });
 };
 
-const mountQuery = (type: FilterType) => {
-  if (type === FilterType.ALL)
-    return `query{
-    allProducts{
-      id
-      name
-      price_in_cents
-      image_url
-    }
-  }
-    `;
-
-  return `query{
-    allProducts(filter: {category: "${getCategoryByType(type)}"}){
-      id
-      name
-      price_in_cents
-      image_url
-      category
-    }
-  }`;
-};
-
 export function useProducts() {
-  const { type } = useFilter();
-  const query = mountQuery(type);
+  const { type, priority } = useFilter();
+  const query = mountQuery(type, priority);
   const { data } = useQuery({
     queryFn: () => fetcher(query),
-    queryKey: ["products", type],
+    queryKey: ["products", type, priority],
   });
 
   return {
