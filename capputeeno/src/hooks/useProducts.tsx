@@ -2,28 +2,47 @@ import axios, { AxiosPromise } from "axios";
 import { useQuery } from "@tanstack/react-query";
 
 import { ProductsFetcherResponse } from "@/types/products-response";
+import { FilterType } from "@/types/filter-types";
+import { useFilter } from "./useFilter";
+import { getCategoryByType } from "@/utils/get-category-by-type";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL as string;
 
-const fetcher = (): AxiosPromise<ProductsFetcherResponse> => {
+const fetcher = (query: string): AxiosPromise<ProductsFetcherResponse> => {
   return axios.post(API_URL, {
-    query: `
-        query{
-            allProducts{
-              id
-              name
-              price_in_cents
-              image_url
-            }
-          }
-        `,
+    query,
   });
 };
 
+const mountQuery = (type: FilterType) => {
+  if (type === FilterType.ALL)
+    return `query{
+    allProducts{
+      id
+      name
+      price_in_cents
+      image_url
+    }
+  }
+    `;
+
+  return `query{
+    allProducts(filter: {category: "${getCategoryByType(type)}"}){
+      id
+      name
+      price_in_cents
+      image_url
+      category
+    }
+  }`;
+};
+
 export function useProducts() {
+  const { type } = useFilter();
+  const query = mountQuery(type);
   const { data } = useQuery({
-    queryFn: fetcher,
-    queryKey: ["products"],
+    queryFn: () => fetcher(query),
+    queryKey: ["products", type],
   });
 
   return {
