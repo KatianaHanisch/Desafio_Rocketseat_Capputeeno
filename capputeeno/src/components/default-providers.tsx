@@ -13,7 +13,8 @@ export function DefaultProviders({ children }: DefaultProvidersProps) {
   const queryClient = new QueryClient();
 
   const theme = {
-    desktopBreakpoint: "768px",
+    desktopBreakpoint: "968px",
+    tableBreakpoint: "768px",
   };
 
   return (
