@@ -3,4 +3,12 @@ export interface Product {
   name: string;
   price_in_cents: number;
   image_url: string;
+  description?: string;
+  category?: string;
+}
+
+export interface ProductFetcherResponse {
+  data: {
+    Product: Product;
+  };
 }
