@@ -39,9 +39,7 @@ const Card = styled.div`
     align-items: start;
     justify-content: center;
     flex-direction: column;
-    border-radius: 0px, 0px, 4px, 4px;
     padding: 8px 8px;
-
     background-color: #ffffff;
 
     > div {
@@ -64,8 +62,8 @@ export function ProductCard(props: ProductCardProps) {
       <Image
         src={props.image}
         alt="imagem do produto"
-        width={228}
-        height={300}
+        width={190}
+        height={290}
       />
       <div>
         <h3>{props.title}</h3>
