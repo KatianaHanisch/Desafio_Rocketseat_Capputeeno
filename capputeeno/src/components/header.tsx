@@ -11,8 +11,6 @@ const sairaStencil = Saira_Stencil_One({
   subsets: ["latin"],
 });
 
-interface HeaderProps {}
-
 const TagHeader = styled.header`
   display: flex;
   align-items: center;
@@ -36,6 +34,7 @@ const Logo = styled.a`
   font-weight: 400;
   font-size: 20px;
   line-height: 150%;
+  text-decoration: none;
 
   @media (min-width: ${(props) => props.theme.tableBreakpoint}) {
     font-size: 24px;
@@ -46,11 +45,13 @@ const Logo = styled.a`
   }
 `;
 
-export function Header(props: HeaderProps) {
+export function Header() {
   const { setSearch, search } = useFilter();
   return (
     <TagHeader>
-      <Logo className={sairaStencil.className}>Capputeeno</Logo>
+      <Logo href="/" className={sairaStencil.className}>
+        Capputeeno
+      </Logo>
       <div>
         <PrimaryInputWSearchIcon
           value={search}
