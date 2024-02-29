@@ -10,6 +10,8 @@
   --delete-color: #de3838;
   --orange-low: #ffa585;
   --secondary-text: #617480;
+  --border-color: #a8a8b3;
+  --sucess-color: #51b853;
 }
 
 * {
