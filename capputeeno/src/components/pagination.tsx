@@ -6,6 +6,7 @@ import { ArrowBack } from "./icons/arrow-back";
 interface PaginationProps {
   page?: number;
   handleChangePage: (page: number) => void;
+  totalItens: number;
 }
 interface BtnPaginationProps {
   selected: boolean;
@@ -44,8 +45,14 @@ const BtnPagination = styled.button<BtnPaginationProps>`
   }
 `;
 
-export function Pagination({ page, handleChangePage }: PaginationProps) {
-  const totalPaginas = 4;
+export function Pagination({
+  page,
+  handleChangePage,
+  totalItens,
+}: PaginationProps) {
+  const itensPorPagina = 12;
+
+  const totalPaginas = Math.ceil(totalItens / itensPorPagina);
 
   return (
     <ContainerPagination>
@@ -60,26 +67,24 @@ export function Pagination({ page, handleChangePage }: PaginationProps) {
           {index + 1}
         </BtnPagination>
       ))}
-      {page === 1 ? null : (
-        <BtnPagination
-          selected={false}
-          onClick={() => {
-            handleChangePage(page! - 1);
-          }}
-        >
-          <ArrowBack />
-        </BtnPagination>
-      )}
-      {page === totalPaginas ? null : (
-        <BtnPagination
-          selected={false}
-          onClick={() => {
-            handleChangePage(page! + 1);
-          }}
-        >
-          <ArrowNext />
-        </BtnPagination>
-      )}
+      <BtnPagination
+        selected={false}
+        onClick={() => {
+          if (page !== 1) handleChangePage(page! - 1);
+        }}
+        disabled={page === 1} // Desabilita o botão se a página atual for a primeira
+      >
+        <ArrowBack />
+      </BtnPagination>
+      <BtnPagination
+        selected={false}
+        onClick={() => {
+          if (page !== totalPaginas) handleChangePage(page! + 1);
+        }}
+        disabled={page === totalPaginas} // Desabilita o botão se a página atual for a última
+      >
+        <ArrowNext />
+      </BtnPagination>
     </ContainerPagination>
   );
 }

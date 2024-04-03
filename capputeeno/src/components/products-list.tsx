@@ -10,7 +10,8 @@ const ListContainer = styled.div`
   grid-gap: 32px;
   max-width: 100%;
 
-  margin-top: 32px;
+  margin-top: 24px;
+  margin-bottom: 14px;
 `;
 
 export function ProductsList() {

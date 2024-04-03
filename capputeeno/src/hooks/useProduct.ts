@@ -1,4 +1,3 @@
-import { Product } from "./../types/product";
 import axios, { AxiosPromise } from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { ProductFetcherResponse } from "@/types/product";
@@ -13,7 +12,7 @@ const fetcher = (productId: string): AxiosPromise<ProductFetcherResponse> => {
          description
          category
          price_in_cents
-           image_url
+         image_url
            }
        }`,
   });

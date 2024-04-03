@@ -6,6 +6,7 @@ import { DefaultPageLayout } from "@/components/default-page-layout";
 import styled from "styled-components";
 import { Pagination } from "@/components/pagination";
 import { useFilter } from "@/hooks/useFilter";
+import { useProducts } from "@/hooks/useProducts";
 
 const PageWrapper = styled.main`
   display: flex;
@@ -16,6 +17,10 @@ const PageWrapper = styled.main`
 export default function Home() {
   const { page, setPage } = useFilter();
 
+  const { totalItens } = useProducts();
+
+  const totalItemsOrDefault = totalItens || 0;
+
   const handleChangePage = (value: number) => {
     setPage(value);
   };
@@ -24,9 +29,17 @@ export default function Home() {
     <DefaultPageLayout>
       <PageWrapper>
         <FilterBar />
-        <Pagination page={page} handleChangePage={handleChangePage} />
+        <Pagination
+          page={page}
+          handleChangePage={handleChangePage}
+          totalItens={totalItemsOrDefault}
+        />
         <ProductsList />
-        <Pagination page={page} handleChangePage={handleChangePage} />
+        <Pagination
+          page={page}
+          handleChangePage={handleChangePage}
+          totalItens={totalItemsOrDefault}
+        />
       </PageWrapper>
     </DefaultPageLayout>
   );

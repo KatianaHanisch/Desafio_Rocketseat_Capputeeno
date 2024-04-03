@@ -21,7 +21,7 @@ interface ProviderProps {
 
 export function FilterContextProvider({ children }: ProviderProps) {
   const [search, setSearch] = useState("");
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [type, setType] = useState(FilterType.ALL);
   const [priority, setPriority] = useState(PriorityTypes.BEST_SELLERS);
 

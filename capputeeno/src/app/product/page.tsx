@@ -3,6 +3,7 @@
 import { BackBtn } from "@/components/back-button";
 import { DefaultPageLayout } from "@/components/default-page-layout";
 import { ShoppingBagIcon } from "@/components/icons/shopping-bar-icon";
+import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useProduct } from "@/hooks/useProduct";
 import { formatPrice } from "@/utils/format-price";
 
